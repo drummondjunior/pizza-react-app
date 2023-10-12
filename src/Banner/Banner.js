@@ -7,4 +7,3 @@ export const Banner = styled.div`
   background-size: cover;
   filter: contrast(75%);
 `;
-
