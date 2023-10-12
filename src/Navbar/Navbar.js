@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { pizzaRed } from "../Styles/colors";
 import { Title } from "../Styles/title";
+import I18n from '../components/I18n'
 
 const NavbarStyled = styled.div`
   background-color: ${pizzaRed};
@@ -25,6 +26,7 @@ export function Navbar() {
         <span role="img" aria-label="pizza slice">
           🍕
         </span>
+      <I18n />
       </Logo>
     </NavbarStyled>
   );
