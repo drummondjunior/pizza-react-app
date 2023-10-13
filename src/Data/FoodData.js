@@ -1,67 +1,40 @@
+import { useTranslation } from 'react-i18next'
+
 export function formatPrice(price) {
-  return price.toLocaleString("pt-BR", {
+
+  let { locale, currency } = Locales()
+
+  return price.toLocaleString(locale, {
     style: "currency",
-    currency: "BRL"
-  });
+    currency: currency
+  })
+
 }
 
-export const foodItems = [
-  {
-    name: "Pizza de Queijo",
-    img: "/img/pizza.png",
-    section: "Pizza",
-    price: 1
-  },
-  {
-    name: "Pizza de Pepperoni",
-    img: "/img/pizza2.jpeg",
-    section: "Pizza",
-    price: 1.5
-  },
-  {
-    name: "Pizza de Frango",
-    img: "/img/chicken-pizza.jpeg",
-    section: "Pizza",
-    price: 2
-  },
-  {
-    img: "/img/healthy-pizza.jpeg",
-    name: "Pizza Veggie",
-    section: "Pizza",
-    price: 2
-  },
-  {
-    img: "/img/burger.jpeg",
-    name: "Hamburger",
-    section: "Sanduíche",
-    price: 3
-  },
-  { img: "/img/gyro.jpeg", name: "Grego", section: "Sanduíche", price: 4.5 },
-  {
-    img: "/img/sandwich.jpeg",
-    name: "Sanduíche de Camarão",
-    section: "Sanduíche",
-    price: 6
-  },
-  {
-    img: "/img/fries.jpeg",
-    name: "Fritas",
-    section: "Acompanhamentos",
-    price: 1
-  },
-  {
-    price: 1,
-    name: "Refrigerante",
-    section: "Drinks",
-    choices: ["Coca-cola", "Sprite", "Root Beer"]
-  }
-];
+export function Locales() {
+  let { i18n } = useTranslation()
+  let selectedLanguage = i18n.language // Idioma selecionado
+  return i18n.store.data[selectedLanguage].config
+}
 
-export const foods = foodItems.reduce((res, food) => {
-  if (!res[food.section]) {
-    res[food.section] = [];
-  }
-  res[food.section].push(food);
-  return res;
-}, {});
+export function Foods() {
 
+  let { i18n } = useTranslation()
+  let selectedLanguage = i18n.language // Idioma selecionado
+  let foodItems = i18n.store.data[selectedLanguage]?.menu?.foodItems
+
+  if (!foodItems) {
+    // Trate o caso em que não há dados retornados, por exemplo, exibindo uma mensagem de erro.
+    return {}
+  }
+
+  const foods = foodItems.reduce((res, food) => {
+    if (!res[food.section]) {
+      res[food.section] = []
+    }
+    res[food.section].push(food)
+    return res
+  }, {})
+  return foods
+
+}

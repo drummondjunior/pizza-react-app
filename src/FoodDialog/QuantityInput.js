@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Title } from "../Styles/title";
 import { pizzaRed } from "../Styles/colors";
+import { Translator } from '../components/I18n'
 
 const QuantityInputStyled = styled.input`
   font-size: 18px;
@@ -38,7 +39,7 @@ const IncrementButton = styled.div`
 export function QuantityInput({ quantity }) {
   return (
     <IncrementContainer>
-      <div>Quantidade:</div>
+      <div><Translator path="quantity" /></div>
       <IncrementButton
         onClick={() => {
           quantity.setValue(quantity.value - 1);

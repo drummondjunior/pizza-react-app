@@ -1,8 +1,8 @@
-import React from "react";
-import styled from "styled-components";
-import { pizzaRed } from "../Styles/colors";
-import { Title } from "../Styles/title";
-import I18n from '../components/I18n'
+import React from "react"
+import styled from "styled-components"
+import { pizzaRed } from "../Styles/colors"
+import { Title } from "../Styles/title"
+import I18n, { Translator } from '../components/I18n'
 
 const NavbarStyled = styled.div`
   background-color: ${pizzaRed};
@@ -12,13 +12,13 @@ const NavbarStyled = styled.div`
   z-index: 999;
   display: flex;
   justify-content: space-between;  
-`;
+`
 
 const Logo = styled(Title)`
   font-size: 20px;
   color: white;
   text-shadow: 1px 1px 4px #380502;
-`;
+`
 
 const UserStatus = styled.div`
   color: white; 
@@ -30,7 +30,7 @@ const LoginButton = styled.span`
   cursor: pointer; 
 `
 
-export function Navbar({login, loggedIn, logout}) {
+export function Navbar({ login, loggedIn, logout }) {
   return (
     <NavbarStyled>
       <Logo>
@@ -41,19 +41,23 @@ export function Navbar({login, loggedIn, logout}) {
       </Logo>
       <I18n />
       <UserStatus>
-        {loggedIn !== "loading" ? (
+        { loggedIn !== "loading" ? (
           <>
-            👤 {loggedIn ? "Logged in." : ""}
-            {loggedIn ? (
-              <LoginButton onClick={logout}> Log out </LoginButton>
+            👤 { loggedIn ? <Translator path="navBar.loggedin" /> : "" }
+            { loggedIn ? (
+              <LoginButton onClick={ logout }>
+                <Translator path="navBar.logout" />
+              </LoginButton>
             ) : (
-              <LoginButton onClick={login}> Log in / Sign up </LoginButton>
-            )}
+              <LoginButton onClick={ login }>
+                <Translator path="navBar.loginsignup" />
+              </LoginButton>
+            ) }
           </>
         ) : (
           "loading..."
-        )}
+        ) }
       </UserStatus>
     </NavbarStyled>
-  );
+  )
 }

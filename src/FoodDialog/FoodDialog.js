@@ -10,6 +10,7 @@ import { Toppings } from "./Toppings";
 import { useToppings } from "../Hooks/useToppings";
 import { useChoice } from "../Hooks/useChoice";
 import { Choices } from "./Choices";
+import { Translator } from '../components/I18n'
 
 export const Dialog = styled.div`
   width: 500px;
@@ -134,7 +135,7 @@ function FoodDialogContainer({ openFood, setOpenFood, setOrders, orders }) {
           <QuantityInput quantity={quantity} />
           {hasToppings(openFood) && (
             <>
-              <h3> Gostaria de algum complemento? </h3>
+              <h3> <Translator path="foodDialog.complemento" /> </h3>
               <Toppings {...toppings} />
             </>
           )}
@@ -147,7 +148,7 @@ function FoodDialogContainer({ openFood, setOpenFood, setOrders, orders }) {
             onClick={isEditing ? editOrder : addToOrder}
             disabled={openFood.choices && !choiceRadio.value}
           >
-            {isEditing ? `Update order: ` : `Add to order: `}
+            { isEditing ? <Translator path="foodDialog.update" /> : <Translator path="foodDialog.add" /> }
             {formatPrice(getPrice(order))}
           </ConfirmButton>
         </DialogFooter>

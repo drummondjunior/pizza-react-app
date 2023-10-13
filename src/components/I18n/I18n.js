@@ -1,21 +1,20 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from "styled-components";
+import styled from "styled-components"
 
 // O useTranslation é um hook que retorna a função de tradução (t) e a instância do i18n.
 
 // Importa as imagens das bandeiras e o componente Flag.
-import { BrasilFlag, EuaFlag } from './assets'
+import * as AllFlags from './assets'
 import Flag from './Flag'
 
 const FlagContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  width: 80px;
-  height: 30px;
-  margin-left: 80%
-`;
+  width: auto;
+  height: 20px;
+`
 
 /**
  * Componente que permite a seleção de idioma com bandeiras.
@@ -35,22 +34,24 @@ const I18n = () => {
   }
 
   const selectedLanguage = i18n.language // Idioma selecionado
+
   return (
     <FlagContainer>
-      {/* Bandeira do Brasil */ }
-      <Flag
-        image={ BrasilFlag }
-        isSelected={ selectedLanguage === 'pt-BR' } // Verifica o idioma escolhido
-        onClick={ () => handleChangeLanguage('pt-BR') } // Troca o idioma para pt-BR
-      />
-      {/* Bandeira dos EUA */ }
-      <Flag
-        image={ EuaFlag }
-        isSelected={ selectedLanguage === 'en-US' } // Verifica o idioma escolhido
-        onClick={ () => handleChangeLanguage('en-US') } // Troca o idioma para en-US
-      />
+      { Object.keys(AllFlags).map((flagKey) => {
+        let lang = AllFlags[flagKey]
+        return <Flag
+          key={ lang.order } // Chave única
+          image={ lang.image }
+          isselected={ selectedLanguage === lang.locale ? 'true' : 'false' }
+          onClick={ () => {
+            handleChangeLanguage(lang.locale)
+          } }
+          alt={ lang.locale }
+        />
+      }) }
     </FlagContainer>
   )
+  
 }
 
 export default I18n

@@ -1,22 +1,23 @@
 import React from 'react';
 import {Dialog, DialogContent, DialogShadow, DialogFooter, ConfirmButton} from "../FoodDialog/FoodDialog";
+import { Translator } from '../components/I18n'
 
 export function OrderDialog({openOrderDialog, setOpenOrderDialog, setOrders}){
   return openOrderDialog ? <>
     <DialogShadow/>
     <Dialog>
       <DialogContent>
-        <h2>🚚 Your order is on the way! </h2>
+        <h2>🚚 <Translator path="orderDialog.ontheway" /></h2>
         <p>
-          You have been emailed confirmation of your order. Thanks for choosing Sliceline.
+          <Translator path="orderDialog.confirmationemail" />
         </p>
       </DialogContent>
       <DialogFooter>
         <ConfirmButton onClick={() => {
           setOrders([]);
           setOpenOrderDialog();
-        }}>
-          I'm still hungry
+        } }>
+          <Translator path="orderDialog.stillhungry" />
         </ConfirmButton>
       </DialogFooter>
     </Dialog>

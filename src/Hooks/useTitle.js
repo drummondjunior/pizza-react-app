@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Translator } from '../components/I18n'
 
 export function useTitle({ openFood, orders }) {
   useEffect(() => {
@@ -7,8 +8,8 @@ export function useTitle({ openFood, orders }) {
     } else {
       document.title =
         orders.length === 0
-          ? `O que tem para comer?`
-          : `[${orders.length}] itens no seu pedido! `
+        ? `${<Translator path="title.oqueparacomer" />}`
+        : `[${orders.length}] ${<Translator path="title.itensnopedido" />} `
     }
   });
 }
