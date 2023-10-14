@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { Translator } from '../components/I18n'
+import { Translator } from '../I18n'
 import {
   DialogContent,
   DialogFooter,

@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import { pizzaRed } from "../Styles/colors"
 import { Title } from "../Styles/title"
-import I18n, { Translator } from '../components/I18n'
+import I18n, { Translator } from '../I18n'
 
 const NavbarStyled = styled.div`
   background-color: ${pizzaRed};

@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Title } from "../Styles/title";
 import { pizzaRed } from "../Styles/colors";
-import { Translator } from '../components/I18n'
+import { Translator } from '../I18n'
 
 const QuantityInputStyled = styled.input`
   font-size: 18px;

@@ -1,8 +1,7 @@
 import React from "react"
 import styled from "styled-components"
-import { Foods } from "../Data/FoodData"
+import { Foods, formatPrice } from "../Data/FoodData"
 import { Food, FoodGrid, FoodLabel } from "./FoodGrid"
-import { formatPrice } from "../Data/FoodData"
 
 const MenuStyled = styled.div`
   height: 1000px;

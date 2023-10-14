@@ -7,7 +7,7 @@ const ptBR = {
   image: BrasilFlag,
   locale: 'pt-BR',
   currency: 'BRL',
-  language: 'Português',
+  language: 'Português (BR)',
 }
 
 const enUS = {

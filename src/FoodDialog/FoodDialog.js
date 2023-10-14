@@ -10,7 +10,7 @@ import { Toppings } from "./Toppings";
 import { useToppings } from "../Hooks/useToppings";
 import { useChoice } from "../Hooks/useChoice";
 import { Choices } from "./Choices";
-import { Translator } from '../components/I18n'
+import { Translator } from '../I18n'
 
 export const Dialog = styled.div`
   width: 500px;

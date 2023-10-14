@@ -1,6 +1,6 @@
 import React from 'react';
 import {Dialog, DialogContent, DialogShadow, DialogFooter, ConfirmButton} from "../FoodDialog/FoodDialog";
-import { Translator } from '../components/I18n'
+import { Translator } from '../I18n'
 
 export function OrderDialog({openOrderDialog, setOpenOrderDialog, setOrders}){
   return openOrderDialog ? <>

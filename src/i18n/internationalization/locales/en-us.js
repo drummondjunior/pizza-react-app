@@ -97,6 +97,8 @@ const lang = {
   },
   translations: {
     quantity: 'Quantity: ',
+    oqueparacomer: 'What\'s for Dinner ? ',
+    itensnopedido: 'items in your order!',
     order: {
       empty: 'Your order is looking quite empty.',
       yourorder: 'Your Order:',
@@ -113,10 +115,6 @@ const lang = {
       loggedin: 'Logged in',
       logout: 'Log out',
       loginsignup: 'Log in / Sign up',
-    },
-    title: {
-      oqueparacomer: 'What\'s for Dinner ? ',
-      itensnopedido: 'items in your order!',
     },
     foodDialog: {
       complemento: 'Would you like any additional items?',

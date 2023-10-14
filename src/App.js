@@ -11,7 +11,7 @@ import { useTitle } from "./Hooks/useTitle"
 import { useAuthentication } from "./Hooks/useAuthentication"
 import { OrderDialog } from "./Order/OrderDialog"
 import { useOrderDialog } from "./Hooks/useOrderDialog"
-// import I18n from './components/I18n'
+// import I18n from './I18n'
 
 function App() {
   const openFood = useOpenFood()
