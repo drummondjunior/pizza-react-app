@@ -1,22 +1,5 @@
 import { useTranslation } from 'react-i18next'
 
-export function formatPrice(price) {
-
-  let { locale, currency } = Locales()
-
-  return price.toLocaleString(locale, {
-    style: "currency",
-    currency: currency
-  })
-
-}
-
-export function Locales() {
-  let { i18n } = useTranslation()
-  let selectedLanguage = i18n.language // Idioma selecionado
-  return i18n.store.data[selectedLanguage].config
-}
-
 export function Foods() {
 
   let { i18n } = useTranslation()

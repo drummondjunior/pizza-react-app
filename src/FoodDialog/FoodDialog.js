@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { FoodLabel } from "../Menu/FoodGrid";
 import { pizzaRed } from "../Styles/colors";
 import { Title } from "../Styles/title";
-import { formatPrice } from "../Data/FoodData";
+import { useFormatPrice } from '../Hooks/useFormatPrice'
 import { QuantityInput } from "./QuantityInput";
 import { useQuantity } from "../Hooks/useQuantity";
 import { Toppings } from "./Toppings";
@@ -123,6 +123,8 @@ function FoodDialogContainer({ openFood, setOpenFood, setOrders, orders }) {
     setOrders([...orders, order]);
     close();
   }
+
+  const formatPrice = useFormatPrice();
 
   return (
     <>

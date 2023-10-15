@@ -19,27 +19,33 @@ const Img = styled.div`
   width: 30px;
   background-image: ${({ image }) => `url(${image})`}; 
   background-position: center;
-  background-size: cover;
-  filter: contrast(${({ selected }) => selected ? `100%` : `50%`}); 
-  border-radius: 15px; 
+  background-size: 190%;
+  background-repeat: no-repeat;
+  // filter: contrast(${({ selected }) => selected ? `100%` : `50%`}); 
+  border-radius: 20px; 
   pointer-events: ${({ selected, showAll }) => selected || showAll ? 'auto' : 'none'};
-  transition: transform 0.4s, opacity 0.4s, box-shadow 0.4s, margin-right 0.4s;
-  margin-left: -0px;
+  transition: transform 0.4s, opacity 0.4s, box-shadow 0.4s, margin-right 0.4s, scale 0.8s;
   margin-right: ${({ showAll }) => (showAll ? `8px` : `0px`)}; 
   z-index: ${({ selected, index }) => (selected ? `100` : `${100 - index}`)}; 
+  box-shadow: ${({ selected }) => selected ? `0px 0px 20px 0px blue` : `none`};
   transform: ${({ index, selected, showAll }) =>
         selected
-            ? `translateX(0px) scale(1.1)`
+            ? `translateX(0px) scale(1)`
             : showAll
                 ? `translateX(0px) scale(1)`
-                : `translateX(${-20 * Number(index)}px) scale(0.9)`};
-//   opacity: ${({ selected, showAll }) => selected || showAll ? `1` : `0.9`};
+                : `translateX(${-21 * Number(index)}px) scale(0.8)`};
+  opacity: ${({ selected, showAll }) => selected ? `1` : `0.7`};
   &:hover {
     cursor: pointer; 
-    filter: contrast(100%); 
+    // filter: contrast(100%); 
     box-shadow: 0px 0px 20px 0px ${({ selected }) => selected ? `blue` : `grey`};
-    transform: scale(1);
-    opacity: 1;
+    transform: ${({ index, selected, showAll }) =>
+      selected
+        ? `translateX(0px) scale(1.2)`
+        : showAll
+          ? `translateX(0px) scale(1.4)`
+          : `translateX(${-21 * Number(index)}px) scale(0.8)`};
+    opacity: ${({ selected, showAll }) => selected || showAll ? `1` : `0.6`};
   }
 `
 

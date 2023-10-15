@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "styled-components"
-import { Foods, formatPrice } from "../Data/FoodData"
+import { Foods } from "../Data/FoodData"
+import { useFormatPrice } from '../Hooks/useFormatPrice';
 import { Food, FoodGrid, FoodLabel } from "./FoodGrid"
 
 const MenuStyled = styled.div`
@@ -9,6 +10,9 @@ const MenuStyled = styled.div`
 `
 
 export function Menu({ setOpenFood }) {
+  
+  const formatPrice = useFormatPrice();
+
   return (
     <MenuStyled>
       { Object.entries(Foods()).map(([sectionName, foods]) => (

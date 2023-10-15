@@ -6,7 +6,7 @@ import {
   DialogFooter,
   ConfirmButton
 } from "../FoodDialog/FoodDialog"
-import { formatPrice } from "../Data/FoodData"
+import { useFormatPrice } from '../Hooks/useFormatPrice';
 import { getPrice } from "../FoodDialog/FoodDialog"
 const database = window.firebase.database()
 
@@ -57,32 +57,38 @@ const DetailItem = styled.div`
 `
 
 function sendOrder(orders, { email, displayName }) {
-  var newOrderRef = database.ref("orders").push()
-  const newOrders = orders.map(order => {
-    return Object.keys(order).reduce((acc, orderKey) => {
-      if (!order[orderKey]) {
-        // undefined value
-        return acc
-      }
-      if (orderKey === "toppings") {
+  try {
+
+    var newOrderRef = database.ref("orders").push()
+    const newOrders = orders.map(order => {
+      return Object.keys(order).reduce((acc, orderKey) => {
+        if (!order[orderKey]) {
+          // undefined value
+          return acc
+        }
+        if (orderKey === "toppings") {
+          return {
+            ...acc,
+            [orderKey]: order[orderKey]
+              .filter(({ checked }) => checked)
+              .map(({ name }) => name)
+          }
+        }
         return {
           ...acc,
           [orderKey]: order[orderKey]
-            .filter(({ checked }) => checked)
-            .map(({ name }) => name)
         }
-      }
-      return {
-        ...acc,
-        [orderKey]: order[orderKey]
-      }
-    }, {})
-  })
-  newOrderRef.set({
-    order: newOrders,
-    email,
-    displayName
-  })
+      }, {})
+    })
+    newOrderRef.set({
+      order: newOrders,
+      email,
+      displayName
+    })
+  } catch (error) {
+    console.error("Failed to send order:", error)
+    // Handle error accordingly, maybe set some state to show in UI.
+  }
 }
 
 export function Order({ orders, setOrders, setOpenFood, login, loggedIn, setOpenOrderDialog }) {
@@ -97,6 +103,8 @@ export function Order({ orders, setOrders, setOpenFood, login, loggedIn, setOpen
     newOrders.splice(index, 1)
     setOrders(newOrders)
   }
+
+  const formatPrice = useFormatPrice();
 
   return (
     <OrderStyled>
@@ -149,21 +157,27 @@ export function Order({ orders, setOrders, setOpenFood, login, loggedIn, setOpen
             <OrderItem>
               <div />
               <div><Translator path="order.total" /></div>
-              <div>{ formatPrice(total) }</div>
+              <div>{ formatPrice(total) }</div> 
             </OrderItem>
           </OrderContainer>
         </OrderContent>
       ) }
-      { orders.length > 0 && <DialogFooter>
-        <ConfirmButton onClick={ () => {
-          if (loggedIn) {
-            setOpenOrderDialog(true)
-            sendOrder(orders, loggedIn)
-          } else {
-            login()
-          }
-        } }>Checkout</ConfirmButton>
-      </DialogFooter> }
+      { orders.length > 0 && (
+        <DialogFooter>
+          <ConfirmButton
+            onClick={ () => {
+              if (loggedIn) {
+                setOpenOrderDialog(true)
+                sendOrder(orders, loggedIn)
+              } else {
+                login()
+              }
+            } }
+          >
+            Checkout
+          </ConfirmButton>
+        </DialogFooter>
+      ) }
     </OrderStyled>
   )
 }
