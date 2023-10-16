@@ -64,7 +64,7 @@ const AltText = styled.p`
 
 const FlagDiv = styled.div`
   position: relative;
-  z-index: ${({ selected, index }) => (selected ? `100` : `${100 - index}`)}; 
+  z-index: ${({ selected, key }) => (selected ? `100` : `${100 - key}`)}; 
   &:hover ${AltText} {
     visibility: visible; /* Exibe o texto quando em hover */
   }
@@ -73,8 +73,8 @@ const FlagDiv = styled.div`
 export function Flag({ selected, text, showall, data }) {
   return (
     <FlagDiv
+      key   = { data.index }
       selected={ selected }
-      index={ data.index }
       text={ text }
     >
       <Img

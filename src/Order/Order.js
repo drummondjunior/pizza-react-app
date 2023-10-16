@@ -57,6 +57,11 @@ const DetailItem = styled.div`
   font-size: 10px;
 `
 
+function getNameById(id, locale) {
+  const foodItem = locale?.menu?.foodItems.find(item => item.id === id)
+  return foodItem ? foodItem.name : null
+}
+
 function sendOrder(orders, { email, displayName }) {
   try {
 
@@ -126,7 +131,7 @@ export function Order({ orders, setOrders, setOpenFood, login, loggedIn, setOpen
                 } }
               >
                 <div>{ order.quantity }</div>
-                <div>{ order.name }</div>
+                <div>{ getNameById(order.foodId, locale) }</div>
                 <div
                   style={ { cursor: "pointer" } }
                   onClick={ e => {

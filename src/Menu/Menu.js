@@ -12,13 +12,16 @@ const MenuStyled = styled.div`
 export function Menu({ setOpenFood }) {
   
   const formatPrice = useFormatPrice();
-
+  let f = Foods()
+  console.log('f:', f)
   return (
     <MenuStyled>
       { Object.entries(Foods()).map(([sectionName, foods]) => (
         <>
           <h1> { sectionName } </h1>
-          <FoodGrid>
+          <FoodGrid
+            key={ foods.id }
+          >
             { foods.map(food => (
               <Food
                 key={ food.id }

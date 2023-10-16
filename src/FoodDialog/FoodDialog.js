@@ -132,6 +132,7 @@ function FoodDialogContainer({ openFood, setOpenFood, setOrders, orders, locale 
   }
 
   const order = {
+    foodId: openFood.id,
     ...openFood,
     quantity: quantity.value,
     toppings: toppings.toppings.map(topping => ({

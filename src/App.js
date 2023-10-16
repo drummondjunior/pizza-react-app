@@ -20,7 +20,7 @@ function App() {
   const auth = useAuthentication()
   const orderDialog = useOrderDialog()
 
-  useTitle({ ...openFood, ...orders })
+  useTitle({ ...openFood, ...orders, locale })
 
   return (
     <>

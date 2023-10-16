@@ -16,7 +16,8 @@ export function Choices({ openFood, choiceRadio }) {
     <>
       <h3> <Translator path="choice.escolha" /> </h3>
       { openFood.choices.map((choice, index) => (
-        <React.Fragment key={ index }>
+        <React.Fragment
+          key={ index }>
           <RadioInput
             type="radio"
             id={ choice }

@@ -1,10 +1,9 @@
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from "../Hooks/useTranslations"
 
 export function Foods() {
 
-  let { i18n } = useTranslation()
-  let selectedLanguage = i18n.language // Idioma selecionado
-  let foodItems = i18n.store.data[selectedLanguage]?.menu?.foodItems
+  const locale = useTranslations()
+  let foodItems = locale?.menu?.foodItems
 
   if (!foodItems) {
     // Trate o caso em que não há dados retornados, por exemplo, exibindo uma mensagem de erro.

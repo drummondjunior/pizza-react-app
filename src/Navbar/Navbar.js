@@ -24,12 +24,27 @@ const UserStatus = styled.div`
   color: white; 
   font-size: 12px; 
   margin-right: 30px; 
+  display: flex;
+  align-items: center;
 `
 
 const LoginButton = styled.span`
   cursor: pointer; 
+  margin-left: 10px;
+  transition: color 0.3s;
+
+  &:hover {
+    color: #fffa;
+  }
 `
 
+const UserIcon = styled.span`
+  margin-right: 10px;
+`;
+
+const LoginStatus = styled.span`
+  margin-right: 10px;
+`
 export function Navbar({ login, loggedIn, logout }) {
   return (
     <NavbarStyled>
@@ -43,7 +58,8 @@ export function Navbar({ login, loggedIn, logout }) {
       <UserStatus>
         { loggedIn !== "loading" ? (
           <>
-            👤 { loggedIn ? <Translator path="navBar.loggedin" /> : "" }
+            <UserIcon>👤</UserIcon>
+            <LoginStatus>{ loggedIn ? <Translator path="navBar.loggedin" /> : "" }</LoginStatus>
             { loggedIn ? (
               <LoginButton onClick={ logout }>
                 <Translator path="navBar.logout" />
