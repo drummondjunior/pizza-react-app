@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components"
+import { useTranslations } from '../Hooks/useTranslations'
 import { Translator } from '../I18n'
 import {
   DialogContent,
@@ -14,7 +15,7 @@ const OrderStyled = styled.div`
   position: fixed;
   right: 0px;
   top: 48px;
-  width: 340px;
+  width: 30%;
   background-color: white;
   height: calc(100% - 48px);
   z-index: 10;
@@ -95,7 +96,10 @@ export function Order({ orders, setOrders, setOpenFood, login, loggedIn, setOpen
   const subtotal = orders.reduce((total, order) => {
     return total + getPrice(order)
   }, 0)
-  const tax = subtotal * 0.07
+
+  let locale = useTranslations();
+
+  const tax = subtotal * locale?.config?.tax
   const total = subtotal + tax
 
   const deleteItem = index => {

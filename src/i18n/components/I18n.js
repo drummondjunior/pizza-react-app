@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
-// import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next'
 import styled from "styled-components"
-import Flags from './assets'
+import { flags } from '../internationalization';
 import Flag from './Flag'
+
+const Flags = flags.flags
+const Translations = flags.translations
 
 const FlagContainer = styled.div`
     display: flex;
@@ -15,21 +17,44 @@ const FlagContainer = styled.div`
     left: 40%; // Ajuste conforme necessário
 `
 
+// console.log('a', Translations)
+
 /**
  * Componente que permite a seleção de idioma com bandeiras.
  * @component
  */
 const I18n = () => {
   const { i18n } = useTranslation()
-  const [showAll, setShowAll] = useState(false) // Estado para gerenciar a exibição de todas as bandeiras
+  const [showall, setShowAll] = useState(false) // Estado para gerenciar a exibição de todas as bandeiras
   let selectedLanguage = i18n.language || 'pt-BR'  // Assegura que sempre haja um idioma selecionado
+
+  const timeoutRef = useRef(null)
+
+  const handleMouseLeave = () => {
+    // Limpa o timeout anterior, se houver
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+    }
+
+    // Define um novo timeout
+    timeoutRef.current = setTimeout(() => {
+      setShowAll(false)
+    }, 2000) // 2000ms = 2 segundo
+  };
+
+  const handleMouseEnter = () => {
+    // Limpa o timeout quando o mouse retorna ao componente
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+    }
+  };
 
   const orderedFlags = Object.keys(Flags)
     .map((flagKey) => Flags[flagKey])
     .sort((a, b) => selectedLanguage === a.locale ? -1 : selectedLanguage === b.locale ? 1 : 0)
 
   const handleFlagClick = (locale) => {
-    if (!showAll && selectedLanguage === locale) {
+    if (!showall && selectedLanguage === locale) {
       setShowAll(true)
     } else {
       i18n.changeLanguage(locale)
@@ -38,36 +63,21 @@ const I18n = () => {
     }
   }
 
-  // const flagContainerRef = useRef(null)
-
-  // useEffect(() => {
-  // const handleClickOutside = (event) => {
-  //   if (flagContainerRef.current && !flagContainerRef.current.contains(event.target)) {
-  //     setShowAll(false)
-  //   }
-  // }
-
-  // document.addEventListener('mousedown', handleClickOutside)
-  // return () => {
-  //   document.removeEventListener('mousedown', handleClickOutside)
-  // }
-  // }, [flagContainerRef, setShowAll]);
-
   return (
     <FlagContainer
-      onMouseLeave={ () => setShowAll(false) }
-    // key={ selectedLanguage }  // Adicionando uma chave que muda quando o idioma é selecionado
+      onMouseLeave={ handleMouseLeave }
+      onMouseEnter={ handleMouseEnter }
     >
       { orderedFlags.map((lang, index) => (
         <Flag
           key={ index }
           selected={ selectedLanguage === lang.locale }
-          showAll={ showAll }
+          showall={ showall ? showall : undefined }
+          text={ Translations[lang.locale].config.language }
           data={ {
             index: index,
-            alt: lang.language,
             image: lang.image,
-            order: index === 0 && !showAll ? 32 : 31 - lang.order,
+            order: index === 0 && !showall ? 0 : lang.order + 1,
             onClick: () => handleFlagClick(lang.locale),
           } }
         />

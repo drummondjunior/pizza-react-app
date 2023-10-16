@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import './I18n/internationalization';
+import { } from './I18n/internationalization';
 
 ReactDOM.render(<App />, document.getElementById("root"));
 

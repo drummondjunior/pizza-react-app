@@ -1,13 +1,30 @@
-import { useState } from "react"
-import { useTranslation } from "react-i18next"
+import { useState, useEffect } from "react"
+import { useTranslations } from "./useTranslations"
 
 export function useToppings(defaultTopping) {
-  const { i18n } = useTranslation() // Use o hook useTranslation para obter o objeto t e i18n
+  let locale = useTranslations()
 
-  const [toppings, setToppings] = useState(
-    getDefaultToppings(i18n)
-    // defaultTopping || getDefaultToppings(i18n)
+  let [toppings, setToppings] = useState(
+    defaultTopping || getDefaultToppings(locale?.menu?.toppings)
   )
+
+  useEffect(() => {
+    // Atualiza os toppings sempre que o locale muda
+    const updatedToppings = getDefaultToppings(locale?.menu?.toppings)
+
+    // Atualiza os nomes mantendo o estado checked
+    setToppings((prevToppings) => {
+      return updatedToppings.map((updatedTopping, index) => {
+        if (prevToppings[index]) {
+          return {
+            ...updatedTopping,
+            checked: prevToppings[index].checked,
+          }
+        }
+        return updatedTopping
+      })
+    })
+  }, [locale])
 
   function checkTopping(index) {
     const newToppings = [...toppings]
@@ -21,22 +38,15 @@ export function useToppings(defaultTopping) {
   }
 }
 
-function getDefaultToppings(i18n) {
-
-  const lang = i18n.resolvedLanguage // Obtenha o idioma atual escolhido
-  const toppings = i18n.translator.resourceStore.data[lang]?.menu?.toppings
-
+function getDefaultToppings(toppings) {
   if (!toppings) {
     // Trate o caso em que não há dados retornados, por exemplo, exibindo uma mensagem de erro.
     return {}
   }
-  const toppingsList = Object.values(toppings)
+  // console.log('toppings', toppings)
 
-  // console.log('asdf', t('config'))
-  console.log('toppingsList', toppingsList)
-
-  return toppingsList.map(name => ({
-    name,
-    checked: false
+  return toppings.map(topping => ({
+    ...topping,
+    checked: topping.defaultChecked || false
   }))
 }

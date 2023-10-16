@@ -12,24 +12,25 @@
  */
 const lang = {
   menu: {
-    toppings: {
-      queijoextra: 'Extra di Formaggio',
-      peperoni: 'Peperoni',
-      linguica: 'Lingua',
-      cebolas: 'Cipolle',
-      pimentoes: 'Peperoni',
-      abacaxi: 'Ananas',
-      presunto: 'Prosciutto',
-      espinafre: 'Spinaci',
-      alcachofras: 'Carciofi',
-      cogumelos: 'Funghi',
-      anchovas: 'Acciughe'
-    },
+    toppings: [
+      { id: 0, name: "Formaggio Extra", price: 0.5 },
+      { id: 1, name: "Peperoni", price: 0.5 },
+      { id: 2, name: "Salsiccia", price: 0.5 },
+      { id: 3, name: "Cipolle", price: 0.5 },
+      { id: 4, name: "Peperoni", price: 0.5 },
+      { id: 5, name: "Ananas", price: 0.5 },
+      { id: 6, name: "Prosciutto", price: 0.5 },
+      { id: 7, name: "Spinaci", price: 0.5 },
+      { id: 8, name: "Carciofi", price: 0.5 },
+      { id: 9, name: "Funghi", price: 0.5 },
+      { id: 10, name: "Acciughe", price: 0.5 }
+    ],
     foodItems: [
       {
         id: 0,
         name: 'Pizza al Formaggio',
         img: '/img/pizza.png',
+        type: 0, 
         section: 'Pizza',
         price: 1
       },
@@ -37,6 +38,7 @@ const lang = {
         id: 1,
         name: 'Pizza al Peperoni',
         img: '/img/pizza2.jpeg',
+        type: 0, 
         section: 'Pizza',
         price: 1.5
       },
@@ -44,6 +46,7 @@ const lang = {
         id: 2,
         name: 'Pizza al Pollo',
         img: '/img/chicken-pizza.jpeg',
+        type: 0, 
         section: 'Pizza',
         price: 2
       },
@@ -51,6 +54,7 @@ const lang = {
         id: 3,
         img: '/img/healthy-pizza.jpeg',
         name: 'Pizza Veggie',
+        type: 0, 
         section: 'Pizza',
         price: 2
       },
@@ -58,6 +62,7 @@ const lang = {
         id: 4,
         img: '/img/burger.jpeg',
         name: 'Hamburger',
+        type: 1, 
         section: 'Panino',
         price: 3
       },
@@ -65,6 +70,7 @@ const lang = {
         id: 5,
         img: '/img/gyro.jpeg',
         name: 'Greco',
+        type: 1, 
         section: 'Panino',
         price: 4.5
       },
@@ -72,6 +78,7 @@ const lang = {
         id: 6,
         img: '/img/sandwich.jpeg',
         name: 'Panino al Gambero',
+        type: 1, 
         section: 'Panino',
         price: 6
       },
@@ -79,6 +86,7 @@ const lang = {
         id: 7,
         img: '/img/fries.jpeg',
         name: 'Patatine Fritte',
+        type: 1, 
         section: 'Contorni',
         price: 1
       },
@@ -86,6 +94,7 @@ const lang = {
         id: 8,
         price: 1,
         name: 'Bevanda',
+        type: 1, 
         section: 'Bevande',
         choices: ['Coca-cola', 'Sprite', 'Root Beer']
       }
@@ -94,6 +103,8 @@ const lang = {
   config: {
     locale: 'it-IT',
     currency: 'EUR',
+    language: 'Italiano (EU)',
+    tax: 0.07,
   },
   translations: {
     quantity: 'Quantità: ',
@@ -120,7 +131,8 @@ const lang = {
       complemento: 'Vuoi qualche aggiunta?',
       update: 'Aggiorna ordine:',
       add: 'Aggiungi all\'ordine: ',
-    }
+    },
+    choice: { 'escolha': 'Scegli uno' }
   }
 }
 

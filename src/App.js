@@ -5,17 +5,18 @@ import { Menu } from "./Menu/Menu"
 import { FoodDialog } from "./FoodDialog/FoodDialog"
 import { GlobalStyle } from "./Styles/GlobalStyle"
 import { Order } from "./Order/Order"
+import { OrderDialog } from "./Order/OrderDialog"
 import { useOpenFood } from "./Hooks/useOpenFood"
 import { useOrders } from "./Hooks/useOrders"
 import { useTitle } from "./Hooks/useTitle"
 import { useAuthentication } from "./Hooks/useAuthentication"
-import { OrderDialog } from "./Order/OrderDialog"
 import { useOrderDialog } from "./Hooks/useOrderDialog"
-// import I18n from './I18n'
+import { useTranslations } from "./Hooks/useTranslations"
 
 function App() {
-  const openFood = useOpenFood()
-  const orders = useOrders()
+  const locale = useTranslations()
+  const openFood = useOpenFood(locale)
+  const orders = useOrders(locale)
   const auth = useAuthentication()
   const orderDialog = useOrderDialog()
 
@@ -25,8 +26,7 @@ function App() {
     <>
       <GlobalStyle />
       <OrderDialog { ...orderDialog } { ...orders } />
-      <FoodDialog { ...openFood } { ...orders } />
-      {/* <I18n /> */}
+      <FoodDialog { ...openFood } { ...orders } locale={ locale } />
       <Navbar { ...auth } />
       <Order { ...orders } { ...openFood } { ...auth } { ...orderDialog } />
       <Banner />

@@ -4,11 +4,11 @@
  */
 
 /**
- * Object of translations in a specific language.
+ * Translations object in a specific language.
  * @type {object}
- * @property {object} translations - Contains translations for various parts of the application.
+ * @property {object} translations - Contains translations for various parts of the app.
  * @property {object} home - Specific translations for the home page.
- * @property {string} message - Greeting message in Portuguese.
+ * @property {string} message - Greeting message in English.
  */
 const lang = {
   menu: {
@@ -61,7 +61,7 @@ const lang = {
       {
         id: 4,
         img: "/img/burger.jpeg",
-        name: "Hamburger",
+        name: "Burger",
         type: 1, 
         section: "Sandwich",
         price: 3
@@ -77,7 +77,7 @@ const lang = {
       {
         id: 6,
         img: "/img/sandwich.jpeg",
-        name: "Shrimp Sandwich",
+        name: "Prawn Sandwich",
         type: 1, 
         section: "Sandwich",
         price: 6
@@ -85,7 +85,7 @@ const lang = {
       {
         id: 7,
         img: "/img/fries.jpeg",
-        name: "Fries",
+        name: "Chips",
         type: 1, 
         section: "Sides",
         price: 1
@@ -93,23 +93,23 @@ const lang = {
       {
         id: 8,
         price: 1,
-        name: "Soda",
+        name: "Soft Drink",
         type: 1, 
         section: "Drinks",
-        choices: ["Coke", "Sprite", "Root Beer"]
+        choices: ["Coca-Cola", "Sprite", "Root Beer"]
       }
     ],
   },
   config: {
-    locale: 'en-US',
-    currency: 'USD',
-    language: 'English (US)',
+    locale: 'en-GB',
+    currency: 'GBP',
+    language: 'English (UK)',
     tax: 0.07,
   },
   translations: {
     quantity: 'Quantity: ',
-    oqueparacomer: 'What\'s for Dinner ? ',
-    itensnopedido: 'items in your order!',
+    oqueparacomer: "What's to eat?",
+    itensnopedido: 'item(s) in your order!',
     order: {
       empty: 'Your order is looking quite empty.',
       yourorder: 'Your Order:',
@@ -119,16 +119,16 @@ const lang = {
     },
     orderDialog: {
       ontheway: 'Your order is on the way!',
-      confirmationemail: 'You have been emailed confirmation of your order. Thanks for choosing Sliceline.',
-      stillhungry: 'I\'m still hungry',
+      confirmationemail: "You've received a confirmation email for your order. Thanks for choosing Sliceline.",
+      stillhungry: "I'm still peckish",
     },
     navBar: {
-      loggedin: 'Logged in',
-      logout: 'Log out',
-      loginsignup: 'Log in / Sign up',
+      loggedin: 'Logged In',
+      logout: 'Log Out',
+      loginsignup: 'Log In / Sign Up',
     },
     foodDialog: {
-      complemento: 'Would you like any additional items?',
+      complemento: 'Any extras?',
       update: 'Update order: ',
       add: 'Add to order: ',
     },
@@ -137,7 +137,7 @@ const lang = {
 }
 
 /**
- * Export the translation object for use in other modules.
+ * Exports the translations object for use in other modules.
  * @type {object}
  */
 export default lang

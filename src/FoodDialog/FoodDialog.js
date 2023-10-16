@@ -1,16 +1,16 @@
-import React from "react";
-import styled from "styled-components";
-import { FoodLabel } from "../Menu/FoodGrid";
-import { pizzaRed } from "../Styles/colors";
-import { Title } from "../Styles/title";
+import React, { useRef, useEffect, useCallback } from "react"
+import styled from "styled-components"
+import { FoodLabel } from "../Menu/FoodGrid"
+import { pizzaRed } from "../Styles/colors"
+import { Title } from "../Styles/title"
 import { useFormatPrice } from '../Hooks/useFormatPrice'
-import { QuantityInput } from "./QuantityInput";
-import { useQuantity } from "../Hooks/useQuantity";
-import { Toppings } from "./Toppings";
-import { useToppings } from "../Hooks/useToppings";
-import { useChoice } from "../Hooks/useChoice";
-import { Choices } from "./Choices";
-import { Translator } from '../I18n'
+import { QuantityInput } from "./QuantityInput"
+import { useQuantity } from "../Hooks/useQuantity"
+import { Toppings } from "./Toppings"
+import { useToppings } from "../Hooks/useToppings"
+import { useChoice } from "../Hooks/useChoice"
+import { Choices } from "./Choices"
+import { Translator } from '../I18n';
 
 export const Dialog = styled.div`
   width: 500px;
@@ -81,25 +81,51 @@ const DialogBannerName = styled(FoodLabel)`
   top: ${({ img }) => (img ? `100px` : `20px`)};
 `;
 
-const pricePerTopping = 0.5;
-
 export function getPrice(order) {
   return (
     order.quantity *
     (order.price +
-      order.toppings.filter(t => t.checked).length * pricePerTopping)
-  );
+      order.toppings.filter(t => t.checked).reduce((acc, topping) => acc + topping.price, 0))
+  )
 }
 
 function hasToppings(food) {
-  return food.section === "Pizza";
+  return food.type === 0;
 }
 
-function FoodDialogContainer({ openFood, setOpenFood, setOrders, orders }) {
-  const quantity = useQuantity(openFood && openFood.quantity);
-  const toppings = useToppings(openFood.toppings);
-  const choiceRadio = useChoice(openFood.choice);
-  const isEditing = openFood.index > -1;
+function FoodDialogContainer({ openFood, setOpenFood, setOrders, orders, locale }) {
+  const quantity = useQuantity(openFood && openFood.quantity)
+  const toppings = useToppings(openFood.toppings)
+  const choiceRadio = useChoice(openFood.choice)
+  const isEditing = openFood.index > -1
+
+  const prevLocaleRef = useRef(locale);
+
+  const getFoodById = useCallback((id) => {
+    console.log('id:', id)
+    return locale?.menu?.foodItems.find(food => food.id === id)
+  }, [locale])
+
+  useEffect(() => {
+    const prevLocale = prevLocaleRef.current
+    if (openFood && locale !== prevLocale) {
+      const updatedOpenFood = getFoodById(openFood.id)
+      if (updatedOpenFood) {
+        setOpenFood({
+          ...updatedOpenFood,
+          toppings: openFood.toppings
+        })
+      }
+    }
+    // Atualize o ref após a verificação
+    prevLocaleRef.current = locale
+  }, [openFood, getFoodById, setOpenFood, locale]);
+
+  useEffect(() => {
+    prevLocaleRef.current = locale
+  }, [locale]);
+
+  // console.log('isEditing:', isEditing, 'locale:', locale, 'openFood:', openFood, 'toppings:', toppings)
 
   function close() {
     setOpenFood();
@@ -108,9 +134,16 @@ function FoodDialogContainer({ openFood, setOpenFood, setOrders, orders }) {
   const order = {
     ...openFood,
     quantity: quantity.value,
-    toppings: toppings.toppings,
+    toppings: toppings.toppings.map(topping => ({
+      id: topping.id,
+      name: topping.name,
+      price: topping.price,
+      checked: topping.checked
+    })),
     choice: choiceRadio.value
   };
+
+  // console.log('order:', order)
 
   function editOrder() {
     const newOrders = [...orders];
@@ -160,6 +193,6 @@ function FoodDialogContainer({ openFood, setOpenFood, setOrders, orders }) {
 }
 
 export function FoodDialog(props) {
-  if (!props.openFood) return null;
-  return <FoodDialogContainer {...props} />;
+  if (!props.openFood) return null
+  return <FoodDialogContainer { ...props } />
 }
