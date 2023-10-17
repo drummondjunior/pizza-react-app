@@ -12,16 +12,12 @@ const MenuStyled = styled.div`
 export function Menu({ setOpenFood }) {
   
   const formatPrice = useFormatPrice();
-  let f = Foods()
-  console.log('f:', f)
   return (
     <MenuStyled>
       { Object.entries(Foods()).map(([sectionName, foods]) => (
-        <>
+        <React.Fragment key={ sectionName.replace(/\s+/g, '-').toLowerCase() }>
           <h1> { sectionName } </h1>
-          <FoodGrid
-            key={ foods.id }
-          >
+          <FoodGrid>
             { foods.map(food => (
               <Food
                 key={ food.id }
@@ -37,7 +33,7 @@ export function Menu({ setOpenFood }) {
               </Food>
             )) }
           </FoodGrid>
-        </>
+        </React.Fragment>
       )) }
     </MenuStyled>
   )

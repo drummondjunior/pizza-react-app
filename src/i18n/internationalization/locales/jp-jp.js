@@ -126,6 +126,7 @@ const lang = {
       loggedin: 'ログイン済み',
       logout: 'ログアウト',
       loginsignup: 'ログイン/サインアップ',
+      loading: '読み込み中...'
     },
     foodDialog: {
       complemento: 'トッピングはいかがですか？',

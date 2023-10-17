@@ -126,6 +126,7 @@ const lang = {
       loggedin: '已登录',
       logout: '登出',
       loginsignup: '登录/注册',
+      loading: '加载中...'
     },
     foodDialog: {
       complemento: '您想要一些配料吗？',

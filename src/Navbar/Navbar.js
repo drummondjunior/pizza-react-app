@@ -56,7 +56,7 @@ export function Navbar({ login, loggedIn, logout }) {
       </Logo>
       <I18n />
       <UserStatus>
-        { loggedIn !== "loading" ? (
+        { loggedIn !== <Translator path="navBar.loading" /> ? (
           <>
             <UserIcon>👤</UserIcon>
             <LoginStatus>{ loggedIn ? <Translator path="navBar.loggedin" /> : "" }</LoginStatus>
@@ -71,7 +71,7 @@ export function Navbar({ login, loggedIn, logout }) {
             ) }
           </>
         ) : (
-          "loading..."
+            <Translator path="navBar.loading" />
         ) }
       </UserStatus>
     </NavbarStyled>

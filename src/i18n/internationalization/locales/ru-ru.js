@@ -119,13 +119,14 @@ const lang = {
     },
     orderDialog: {
       ontheway: 'Ваш заказ в пути!',
-      confirmationemail: 'Вы получили подтверждающее письмо о вашем заказе. Спасибо, что выбрали Sliceline.',
+      confirmationemail: 'Вы получили подтверждающее письмо о вашем заказе. Спасибо, что выбрали Pizzaria.',
       stillhungry: 'Я все еще голоден',
     },
     navBar: {
       loggedin: 'В системе',
       logout: 'Выйти',
       loginsignup: 'Войти / Зарегистрироваться',
+      loading: 'Загрузка...'
     },
     foodDialog: {
       complemento: 'Хотите что-то добавить?',

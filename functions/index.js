@@ -2,19 +2,17 @@ const functions = require('firebase-functions');
 const nodemailer = require('nodemailer');
 const htmlToText = require('nodemailer-html-to-text').htmlToText;
 
-const {email, password} = require('./config');
-
 const mailTransport = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: email,
-    pass: password
+    user: Buffer.from(functions.config().gmail.email, 'base64').toString('utf8'),
+    pass: Buffer.from(functions.config().gmail.password, 'base64').toString('utf8'),
   }
 });
 
 mailTransport.use("compile", htmlToText());
 
-const APP_NAME = 'Sliceline';
+const APP_NAME = 'Pizzaria';
 
 exports.sendUserEmail = functions.database
   .ref("/orders/{pushId}")
@@ -24,7 +22,7 @@ exports.sendUserEmail = functions.database
 
 function sendOrderEmail(order){
   const mailOptions = {
-    from: `${APP_NAME} <noreply@sliceline.com`,
+    from: `${APP_NAME} <american.infogest.mailer@gmail.com>`,
     to: order.email,
     subject: `Your order from ${APP_NAME}.`,
     html: `

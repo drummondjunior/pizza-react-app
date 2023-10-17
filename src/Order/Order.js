@@ -7,9 +7,11 @@ import {
   DialogFooter,
   ConfirmButton
 } from "../FoodDialog/FoodDialog"
-import { useFormatPrice } from '../Hooks/useFormatPrice';
+import { useFormatPrice } from '../Hooks/useFormatPrice'
 import { getPrice } from "../FoodDialog/FoodDialog"
-const database = window.firebase.database()
+
+import { database } from "../config/firebaseConfig"
+import { ref, push, set } from 'firebase/database'
 
 const OrderStyled = styled.div`
   position: fixed;
@@ -65,7 +67,9 @@ function getNameById(id, locale) {
 function sendOrder(orders, { email, displayName }) {
   try {
 
-    var newOrderRef = database.ref("orders").push()
+    const ordersRef = ref(database, "orders")
+    const newOrderRef = push(ordersRef)
+
     const newOrders = orders.map(order => {
       return Object.keys(order).reduce((acc, orderKey) => {
         if (!order[orderKey]) {
@@ -86,10 +90,11 @@ function sendOrder(orders, { email, displayName }) {
         }
       }, {})
     })
-    newOrderRef.set({
+    set(newOrderRef, {
       order: newOrders,
       email,
-      displayName
+      displayName,
+      createAt: Date.now(),
     })
   } catch (error) {
     console.error("Failed to send order:", error)
@@ -102,7 +107,7 @@ export function Order({ orders, setOrders, setOpenFood, login, loggedIn, setOpen
     return total + getPrice(order)
   }, 0)
 
-  let locale = useTranslations();
+  let locale = useTranslations()
 
   const tax = subtotal * locale?.config?.tax
   const total = subtotal + tax
@@ -113,7 +118,7 @@ export function Order({ orders, setOrders, setOpenFood, login, loggedIn, setOpen
     setOrders(newOrders)
   }
 
-  const formatPrice = useFormatPrice();
+  const formatPrice = useFormatPrice()
 
   return (
     <OrderStyled>
@@ -166,7 +171,7 @@ export function Order({ orders, setOrders, setOpenFood, login, loggedIn, setOpen
             <OrderItem>
               <div />
               <div><Translator path="order.total" /></div>
-              <div>{ formatPrice(total) }</div> 
+              <div>{ formatPrice(total) }</div>
             </OrderItem>
           </OrderContainer>
         </OrderContent>

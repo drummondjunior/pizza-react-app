@@ -1,37 +1,45 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"
+import { GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "firebase/auth"
+import { auth } from "../config/firebaseConfig" // Importe o auth diretamente
 
-const auth = window.firebase.auth();
-const provider = new window.firebase.auth.GoogleAuthProvider();
+const provider = new GoogleAuthProvider()
 
 export function useAuthentication() {
-  const [authenticated, setAuthenticated] = useState('loading');
+  const [authenticated, setAuthenticated] = useState('loading')
 
-  function login(){
-    auth.signInWithPopup(provider);
+  function login() {
+    signInWithPopup(auth, provider)
+      .then((a) => {
+        console.log('signin:', a)
+      })
+      .catch((error) => {
+        console.error('signin error:', error)
+      })
   }
 
   function logout() {
-    auth
-    .signOut()
-    .then(function() {
-      // Sign-out successful.
-    })
-    .catch(function(error) {
-      // An error happened.
-    });
+    signOut(auth)
+      .then(function () {
+        // Sign-out successful.
+      })
+      .catch(function (error) {
+        // An error happened.
+      })
   }
 
   useEffect(() => {
-    auth.onAuthStateChanged(function(user){
-      if(user){
-        setAuthenticated(user);
-      }else{
-        setAuthenticated();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setAuthenticated(user)
+      } else {
+        setAuthenticated()
       }
-    }, function(error){
-      console.log(error);
-    });
-  }, []);
+    })
 
-  return {login, logout, loggedIn: authenticated};
+    // Limpeza na desmontagem
+    return () => unsubscribe()
+
+  }, [])
+
+  return { login, logout, loggedIn: authenticated }
 }

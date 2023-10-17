@@ -111,9 +111,10 @@ const lang = {
       stillhungry: '아직 배가 고파요',
     },
     navBar: {
-      loggedin: '로그인됨',
-      logout: '로그아웃',
-      loginsignup: '로그인 / 가입',
+      loggedin: '로그인됨', // Logged in
+      logout: '로그아웃',   // Logout
+      loginsignup: '로그인 / 가입하기', // Login / Sign up
+      loading: '로딩 중...'  // Loading...
     },
     foodDialog: {
       complemento: '추가 토핑을 원하십니까?',

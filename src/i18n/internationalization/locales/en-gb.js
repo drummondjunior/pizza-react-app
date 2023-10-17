@@ -119,13 +119,14 @@ const lang = {
     },
     orderDialog: {
       ontheway: 'Your order is on the way!',
-      confirmationemail: "You've received a confirmation email for your order. Thanks for choosing Sliceline.",
+      confirmationemail: "You've received a confirmation email for your order. Thanks for choosing Pizzaria.",
       stillhungry: "I'm still peckish",
     },
     navBar: {
       loggedin: 'Logged In',
       logout: 'Log Out',
       loginsignup: 'Log In / Sign Up',
+      loading: 'Loading...'
     },
     foodDialog: {
       complemento: 'Any extras?',

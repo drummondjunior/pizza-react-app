@@ -54,6 +54,11 @@ const languages = [
     imageFile: 'russia-flag.svg',
     locale: 'ru-RU',
   },
+  {
+    order: 11,
+    imageFile: 'portugal-flag.svg',
+    locale: 'pt-PT',
+  },
   // ... adicione mais idiomas conforme necessário
 ]
 
