@@ -24,7 +24,7 @@ const Img = styled.div`
   // filter: contrast(${({ selected }) => selected ? `100%` : `50%`}); 
   border-radius: 20px; 
   pointer-events: ${({ selected, showall }) => selected || showall ? 'auto' : 'none'};
-  transition: transform 0.4s, opacity 0.4s, box-shadow 0.4s, margin-right 0.4s, scale 0.4s;
+  transition: transform 0.4s, opacity 0.4s, box-shadow 0.4s, margin-right 0.4s, scale 0.8s;
   margin-right: ${({ showall }) => (showall ? `8px` : `0px`)}; 
   z-index: ${({ selected, index }) => (selected ? `100` : `${100 - index}`)}; 
   box-shadow: ${({ selected }) => selected ? `0px 0px 20px 0px blue` : `none`};
